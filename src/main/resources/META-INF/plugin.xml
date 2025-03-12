@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.zzhorizonzz.intellijturborepoplugin</id>
-    <name>intellij-turborepo-plugin</name>
+    <id>com.github.zzhorizonzz.turborepo</id>
+    <name>turborepo</name>
     <vendor>zzhorizonzz</vendor>
 
     <depends>com.intellij.modules.platform</depends>
@@ -9,10 +9,20 @@
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.zzhorizonzz.intellijturborepoplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <toolWindow id="Turborepo"
+                    anchor="right"
+                    factoryClass="com.github.zzhorizonzz.turborepo.TurborepoToolWindowFactory"
+                    icon="com.github.zzhorizonzz.turborepo.TurborepoIcons.LOGO"/>
+
+        <projectService serviceImplementation="com.github.zzhorizonzz.turborepo.TurborepoService"/>
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.zzhorizonzz.intellijturborepoplugin.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
+    <actions>
+        <action id="com.turborepo.plugin.actions.RefreshPackagesAction"
+                class="com.github.zzhorizonzz.turborepo.actions.RefreshPackagesAction"
+                text="Refresh Turborepo Packages"
+                description="Refresh Turborepo packages in the current project">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+    </actions>
 </idea-plugin>
